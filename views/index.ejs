@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+
+    <script src="/lib/angular/angular.js"></script>
+    <script src="/lib/angular-messages/angular-messages.js"></script>
+    <script src="/lib/angular-route/angular-route.js"></script>
+    <script src="/lib/angular-sanitize/angular-sanitize.js"></script>
+
+    <script src="/lib/ngtoast/dist/ngToast.min.js"></script>
+
+    <script src="/lib/apLamb/dist/apLamb.js"></script>
+    <script src="/lib/apLambSocks/sockService.js"></script>
+    <script src="/lib/apLambSocks/lambSocksLib.js"></script>
+    <script src="/lib/apLambSocks/lambSocksService.js"></script>
+
+    <script src="/scripts/app/LambSample.js"></script>
+    <script src="/scripts/app/LambSampleRoute.js"></script>
+    <script src="/scripts/app/httpInterceptor.js"></script>
+    <script src="/scripts/app/navCtrl.js"></script>
+
+    <script src="/scripts/ex1/userService1.js"></script>
+    <script src="/scripts/ex1/userCtrl1.js"></script>
+
+    <script src="/scripts/ex2/userService2.js"></script>
+    <script src="/scripts/ex2/userCtrl2.js"></script>
+
+    <script src="/scripts/ex3/userService3.js"></script>
+    <script src="/scripts/ex3/userCtrl3.js"></script>
+
+    <script src="/scripts/chip/chipService.js"></script>
+    <script src="/scripts/chip/colorChipDirective.js"></script>
+    <script src="/scripts/chip/chipCtrl.js"></script>
+
+    <script src="/scripts/status/statusSettings.js"></script>
+    <script src="/scripts/status/toastDaemon.js"></script>
+    <script src="/scripts/status/statusCtrl.js"></script>
+
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+    <link rel="stylesheet" href="/lib/bootstrap-css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/ngToast/dist/ngToast.min.css">
+
+</head>
+
+<body ng-app="LambSample">
+<toast></toast>
+
+<header>
+    <center class="title">
+        <br/>
+        <span>Introducing&nbsp;&nbsp;&nbsp;L</span>
+        <img src="/images/angular.ico">
+        <span>MB</span>
+    </center>
+    <div ng-include="'/templates/nav.html'"></div>
+    <div class="author">
+        Alvin Pivowar&nbsp;&nbsp;
+        <a href="mailto:alvin.pivowar@gmail.com">alvin.pivowar@gmail.com</a>&nbsp;&nbsp;
+        Sep. 2015
+    </div>
+</header>
+
+<hr>
+<div class="view" ng-view></div>
+</body>
+</html>

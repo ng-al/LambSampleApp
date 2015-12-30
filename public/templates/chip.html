@@ -1,0 +1,48 @@
+<div>
+    <div class="pane chip-pane" ng-include="'chip1.html'"></div>
+    <div class="pane chip-pane" ng-include="'chip2.html'"></div>
+</div>
+
+<script type="text/ng-template" id="chip1.html">
+    <div class="chip" ng-controller="chipCtrl as vm">
+        <center>
+            <h2>Color Chips</h2>
+            <h3>Update via 10,240 $watches</h3>
+        </center>
+
+        <label>Red:</label><br />
+        <span ng-repeat="r in vm.colorValues">
+            <span class="picker" style="background: #{{r}}0000" ng-click="vm.setWatchRed(r)"></span>
+            <br ng-if="r === '6F'" />
+        </span>
+
+        <br />
+        <div style="clear: both" ng-repeat="g in vm.colorValues">
+            <div ng-repeat="b in vm.colorValues">
+                <color-chip g="{{g}}" b="{{b}}" use-watch></color-chip>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="chip2.html">
+    <div class="chip" ng-controller="chipCtrl as vm">
+        <center>
+            <h2>Color Chips</h2>
+            <h3>Update via 10,240 Lamb subscriptions</h3>
+        </center>
+
+        <label>Red:</label><br />
+        <span ng-repeat="r in vm.colorValues">
+            <span class="picker" style="background: #{{r}}0000" ng-click="vm.setLambRed(r)"></span>
+            <br ng-if="r === '6F'" />
+        </span>
+
+        <br />
+        <div style="clear: both" ng-repeat="g in vm.colorValues">
+            <div ng-repeat="b in vm.colorValues">
+                <color-chip g="{{g}}" b="{{b}}" use-lamb></color-chip>
+                </div>
+            </div>
+        </div>
+</script>
