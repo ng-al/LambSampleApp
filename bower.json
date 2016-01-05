@@ -1,5 +1,5 @@
 {
-  "name": "Lamb Sample App",
+  "name": "LambSampleApp",
   "authors": [
     "alvin-pivowar <alvin@ng-al.com>"
   ],
@@ -7,7 +7,7 @@
   "license": "BSD",
   "main": [
     "bin/www",
-    "index.html"
+    "index.ejs"
   ],
   "dependencies": {
     "angular": "^1.4.5",
@@ -15,6 +15,6 @@
     "angular-messages": "^1.4.5",
     "angular-route": "^1.4.5",
     "bootstrap-css": "^3.3.4",
-    "apLamb": "^2.0.0"
+    "apLambSocks": "^2.0.0"
   }
 }
