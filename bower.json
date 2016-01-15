@@ -6,8 +6,8 @@
   "homepage": "http://www.ng-al.com",
   "license": "BSD",
   "main": [
-    "bin/www",
-    "index.ejs"
+    "server.js",
+    "server/views/index.ejs"
   ],
   "dependencies": {
     "angular": "^1.4.5",
