@@ -1,3 +1,5 @@
+// Copyright (c) Alvin Pivowar 2015, 2016
+
 (function() {
     "use strict";
 
@@ -20,7 +22,7 @@
             init();
 
             function add() {
-                vm.editUser = { id: "new"};
+                vm.editUser = { uuid: "new"};
             }
 
             function cancelEdit() {
@@ -28,28 +30,27 @@
             }
 
             function create(newUser) {
-                delete newUser.id;
-                userService1.createUser(newUser).then(function(data) {
-                    newUser.id = data.data.id;
-                    vm.users.push(newUser);
+                delete newUser.uuid;
+                userService1.createUser(newUser).then(function(user) {
+                    vm.users.push(user);
                 });
                 cancelEdit();
             }
 
-            function deleteOp(id) {
-                userService1.deleteUser(id).then(function() {
+            function deleteOp(uuid) {
+                userService1.deleteUser(uuid).then(function() {
                     var updatedUserList = [];
                     angular.forEach(vm.users, function(user) {
-                        if (user.id !== id)
+                        if (user.uuid !== uuid)
                             updatedUserList.push(user);
-                    })
+                    });
                     vm.users = updatedUserList;
                 });
             }
 
-            function edit(id) {
+            function edit(uuid) {
                 angular.forEach(vm.users, function(user) {
-                    if (user.id === id) {
+                    if (user.uuid === uuid) {
                         angular.extend(vm.editUser, user);
                     }
                 });
@@ -59,17 +60,12 @@
                 userService1.getAllUsers().then(function(data) {
                     vm.users = data.data;
                 });
-
-                //var socket = $window.io();
-                //socket.on('LambSocks', function (data) {
-                //    alert(JSON.stringify(message));
-                //});
             }
 
             function update(updatedUser) {
                 userService1.updateUser(updatedUser).then(function() {
                     angular.forEach(vm.users, function(user) {
-                        if (user.id === updatedUser.id) {
+                        if (user.uuid === updatedUser.uuid) {
                             angular.extend(user, updatedUser);
                         }
                     });

@@ -1,18 +1,26 @@
-/* Copyright (c) 2015 Alvin Pivowar */
+// Copyright (c) Alvin Pivowar 2015, 2016
+
 (function(){
     "use strict";
 
     angular
         .module("LambSample")
         .factory("userService1",
-        ["$http",
-        function($http) {
+        ["$http", "$q",
+        function($http, $q) {
             function createUser(user) {
-                return $http.post("/api/users", user);
+                return $q(function(accept, reject) {
+                    $http.post("/api/users", user).then(function(response) {
+                        if (response.status === 201)
+                            accept(response.data);
+                        else
+                            reject(response.status);
+                    });
+                });
             }
 
-            function deleteUser(id) {
-                return $http.delete("/api/users/" + id);
+            function deleteUser(uuid) {
+                return $http.delete("/api/users/" + uuid);
             }
 
             function getAllUsers() {
@@ -24,8 +32,13 @@
             }
 
             function updateUser(user) {
-                return $http.put("/api/users/" + user.id, user).then(function(data) {
-
+                return $q(function(accept, reject) {
+                    $http.put("/api/users/" + user.uuid, user).then(function(response) {
+                        if (response.status === 200)
+                            accept(response.data);
+                        else
+                            reject(response.status);
+                    });
                 });
             }
 

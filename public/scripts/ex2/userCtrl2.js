@@ -1,3 +1,5 @@
+// Copyright (c) Alvin Pivowar 2015, 2016
+
 (function() {
     "use strict";
 
@@ -24,7 +26,7 @@
             init();
 
             function add() {
-                vm.editUser = { id: "new"};
+                vm.editUser = { uuid: "new"};
             }
 
             function cancelEdit() {
@@ -32,18 +34,18 @@
             }
 
             function create(newUser) {
-                delete newUser.id;
+                delete newUser.uuid;
                 userService2.createUser(newUser);
                 cancelEdit();
             }
 
-            function deleteOp(id) {
-                userService2.deleteUser(id);
+            function deleteOp(uuid) {
+                userService2.deleteUser(uuid);
             }
 
-            function edit(id) {
+            function edit(uuid) {
                 angular.forEach(vm.users, function(user) {
-                    if (user.id === id) {
+                    if (user.uuid === uuid) {
                         angular.extend(vm.editUser, user);
                     }
                 });
@@ -60,16 +62,16 @@
 
                 bus.subscribe("users.update.*", function(updatedUser) {
                     angular.forEach(vm.users, function(user) {
-                        if (user.id === updatedUser.id) {
+                        if (user.uuid === updatedUser.uuid) {
                             angular.extend(user, updatedUser);
                         }
                     });
                 });
 
-                bus.subscribe("users.delete.*", function(id) {
+                bus.subscribe("users.delete.*", function(uuid) {
                     var updatedUserList = [];
                     angular.forEach(vm.users, function(user) {
-                        if (user.id !== id)
+                        if (user.uuid !== uuid)
                             updatedUserList.push(user);
                     });
                     vm.users = updatedUserList;

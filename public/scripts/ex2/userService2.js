@@ -1,4 +1,5 @@
-/* Copyright (c) 2015 Alvin Pivowar */
+// Copyright (c) Alvin Pivowar 2015, 2016
+
 (function(){
     "use strict";
 
@@ -7,19 +8,25 @@
     angular
         .module("LambSample")
         .factory(SERVICE_NAME,
-        ["$http", "$rootScope", "Lamb",
-        function($http, $rootScope, Lamb) {
+        ["$http", "$q", "$rootScope", "Lamb",
+        function($http, $q, $rootScope, Lamb) {
             var bus = new Lamb(SERVICE_NAME, $rootScope);
 
             function createUser(user) {
-                return $http.post("/api/users", user).success(function(user) {
-                    bus.publish("users.create." + user.id, user);
+                return $q(function(accept, reject) {
+                    $http.post("/api/users", user).then(function(response) {
+                        if (response.status === 201) {
+                            accept(response.data);
+                            bus.publish("users.create." + user.uuid, response.data);
+                        } else
+                            reject(response.status);
+                    });
                 });
             }
 
-            function deleteUser(id) {
-                return $http.delete("/api/users/" + id).success(function() {
-                    bus.publish("users.delete." + id, id);
+            function deleteUser(uuid) {
+                return $http.delete("/api/users/" + uuid).success(function() {
+                    bus.publish("users.delete." + uuid, uuid);
                 });
             }
 
@@ -32,8 +39,14 @@
             }
 
             function updateUser(user) {
-                return $http.put("/api/users/" + user.id, user).success(function(user) {
-                    bus.publish("users.update." + user.id, user);
+                return $q(function(accept, reject) {
+                    $http.put("/api/users/" + user.uuid, user).then(function(response) {
+                        if (response.status === 200) {
+                            accept(response.data);
+                            bus.publish("users.update." + user.uuid, response.data);
+                        } else
+                            reject(response.status);
+                    });
                 });
             }
 

@@ -9,10 +9,10 @@
             <h3>Controller and Service (no Lamb)</h3>
         </center>
 
-        <div ng-if="vm.editUser.id !== 'new'">
+        <div ng-if="vm.editUser.uuid !== 'new'">
             <button class="create-button" ng-click="vm.add()">Add</button>
         </div>
-        <div ng-if="vm.editUser.id === 'new'">
+        <div ng-if="vm.editUser.uuid === 'new'">
             <label>Name: </label><input type="text" ng-model="vm.editUser.firstName">&nbsp;&nbsp;<input type="text" ng-model="vm.editUser.lastName"><br />
             <label>Email: </label><input type="email" ng-model="vm.editUser.email">
             <button ng-click="vm.cancelEdit()">Cancel</button>
@@ -24,12 +24,12 @@
         <br />
         <br />
         <div class="list" ng-repeat="user in vm.users">
-            <div ng-if="vm.editUser.id !== user.id">
+            <div ng-if="vm.editUser.uuid !== user.uuid">
                 <span>{{user.lastName}}, {{user.firstName}}</span>
-                <button ng-click="vm.delete(user.id)">Delete</button>
-                <button ng-click="vm.edit(user.id)">Edit</button>
+                <button ng-click="vm.delete(user.uuid)">Delete</button>
+                <button ng-click="vm.edit(user.uuid)">Edit</button>
             </div>
-            <div ng-if="vm.editUser.id === user.id">
+            <div ng-if="vm.editUser.uuid === user.uuid">
                 <label>Name: </label><input type="text" ng-model="vm.editUser.firstName">&nbsp;&nbsp;<input type="text" ng-model="vm.editUser.lastName"><br />
                 <label>Email: </label><input type="email" ng-model="vm.editUser.email">
                 <button ng-click="vm.cancelEdit()">Cancel</button>

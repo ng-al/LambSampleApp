@@ -1,4 +1,5 @@
-/* Copyright (c) 2015 Alvin Pivowar */
+// Copyright (c) Alvin Pivowar 2015, 2016
+
 (function(){
     "use strict";
 
@@ -13,11 +14,18 @@
             init();
 
             function createUser(user) {
-                return $http.post("/api/users", user);
+                return $q(function(accept, reject) {
+                    $http.post("/api/users", user).then(function(response) {
+                        if (response.status === 201)
+                            accept(response.data);
+                        else
+                            reject(response.status);
+                    });
+                });
             }
 
-            function deleteUser(id) {
-                return $http.delete("/api/users/" + id);
+            function deleteUser(uuid) {
+                return $http.delete("/api/users/" + uuid);
             }
 
             function getAllUsers() {
@@ -30,11 +38,11 @@
 
             function init() {
                 lambSocks.registerTransform(/USER_CREATE/, function(sockMessage) {
-                    var id = sockMessage.receivedData;
+                    var uuid = sockMessage.receivedData;
                     return $q(function(accept, reject) {
-                        getUser(id).then(function(data) {
+                        getUser(uuid).then(function(data) {
                             accept({
-                                topic: "users.create." + id,
+                                topic: "users.create." + uuid,
                                 data: data.data
                             });
                         });
@@ -42,19 +50,19 @@
                 });
 
                 lambSocks.registerTransform(/USER_DELETE/, function(sockMessage) {
-                    var id = sockMessage.receivedData;
+                    var uuid = sockMessage.receivedData;
                     return {
-                        topic: "users.delete." + id,
-                        data: id
+                        topic: "users.delete." + uuid,
+                        data: uuid
                     };
                 });
 
                 lambSocks.registerTransform(/USER_UPDATE/, function(sockMessage) {
-                    var id = sockMessage.receivedData;
+                    var uuid = sockMessage.receivedData;
                     return $q(function(accept, reject) {
-                        getUser(id).then(function(data) {
+                        getUser(uuid).then(function(data) {
                             accept({
-                                topic: "users.update." + id,
+                                topic: "users.update." + uuid,
                                 data: data.data
                             });
                         });
@@ -63,7 +71,14 @@
             }
 
             function updateUser(user) {
-                return $http.put("/api/users/" + user.id, user);
+                return $q(function(accept, reject) {
+                    $http.put("/api/users/" + user.uuid, user).then(function(response) {
+                        if (response.status === 200)
+                            accept(response.data);
+                        else
+                            reject(response.status);
+                    });
+                });
             }
 
             return {
