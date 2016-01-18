@@ -1,90 +1,52 @@
 // Copyright (c) 2015, 2016 Alvin Pivowar
 
-var Promise = require("promise");
-var sqlite3 = require("sqlite3").verbose();
+var DB_PATH = "./server/db/lambSample.db";
+
+var Sqlite3Helper = require("./sqlite3-helper");
+var userInitialization = require("./userInitialization");
 var uuidGenerator = require("node-uuid");
 
-var userInitialization = require("./userInitialization");
+var helper = new Sqlite3Helper(DB_PATH);
 
-var userRepository = {
-    db: new sqlite3.Database("./server/db/lambSample.db")
-};
+userInitialization.initialize(helper);
 
-userRepository.createUser = function(firstName, lastName, email) {
-    return new Promise(function(accept, reject) {
+
+module.exports = {
+    createUser: function(firstName, lastName, email) {
+        var sql = "insert into user (uuid, firstName, lastName, email) values ($uuid, $firstName, $lastName, $email)";
         var uuid = uuidGenerator.v4();
-        userRepository.db.run("insert into user (uuid, firstName, lastName, email) values ($uuid, $firstName, $lastName, $email)", {
+
+        return helper.run(sql, {
             $uuid: uuid,
             $firstName: firstName,
             $lastName: lastName,
             $email: email
-        }, function(err, row) {
-            if (err)
-                reject(err);
-            else
-                accept(uuid);
-        });
-    });
-};
+        }, uuid);
+    },
 
-userRepository.deleteUser = function(uuid) {
-    return new Promise(function(accept, reject) {
-        userRepository.db.run("delete from user where uuid = ?", uuid, function(err, row) {
-            if (err)
-                reject(err);
-            else
-                accept(true);
-        });
-    });
-};
+    deleteUser: function(uuid) {
+        var sql = "delete from user where uuid = ?";
+        return helper.run(sql, uuid, true);
+    },
 
-userRepository.getAllUsers = function() {
-    return new Promise(function(accept, reject) {
-        userRepository.db.all("select uuid, firstName, lastName, email from user", function(err, rows) {
-            if (err)
-                reject(err);
-            else
-                accept(rows);
-        });
-    });
-};
+    getAllUsers: function() {
+        var sql = "select uuid, firstName, lastName, email from user";
+        return helper.all(sql);
+    },
 
-userRepository.getNumberOfUsers = function() {
-    return new Promise(function(accept, reject) {
-        userRepository.db.get("select count(*) from user", function(err, row) {
-            accept(row["count(*)"]);
-        });
-    });
-};
+    getUserByCriteria: function(criteria) {
+        var sql = "select uuid, firstName, lastName, email from user where uuid = $criteria or email = $criteria";
+        return helper.get(sql, { $criteria: criteria });
+    },
 
-userRepository.getUserByCriteria = function(criteria) {
-    return new Promise(function(accept, reject) {
-        userRepository.db.get("select uuid, firstName, lastName, email from user where uuid = $criteria or email = $criteria", {
-            $criteria: criteria
-        }, function(err, row) {
-            if (err)
-                reject(err);
-            else
-                accept(row);
-        });
-    });
-};
-
-userRepository.updateUser = function(uuid, firstName, lastName, email) {
-    return new Promise(function(accept, reject) {
-        userRepository.db.run("update user set firstName = $firstName, lastName = $lastName, email = $email where uuid = $uuid", {
+    updateUser: function(uuid, firstName, lastName, email) {
+        var sql = "update user set firstName = $firstName, lastName = $lastName, email = $email where uuid = $uuid";
+        return helper.run(sql, {
             $uuid: uuid,
             $firstName: firstName,
             $lastName: lastName,
             $email: email
-        }, function(err, row) {
-            if (err)
-                reject(err);
-            else
-                accept(true);
-        });
-    });
+        }, true);
+    }
 };
 
-userInitialization.initializeUsers(userRepository);
-module.exports = userRepository;
