@@ -16,6 +16,7 @@
     "angular-route": "^1.4.5",
     "bootstrap-css": "^3.3.4",
     "apLambSocks": "^2.0.0",
+    "http-status-codes": "^0.1.0",
     "ngtoast": "^1.5.6"
   }
 }

@@ -6,12 +6,12 @@
     angular
         .module("LambSample")
         .factory("userService1",
-        ["$http", "$q",
-        function($http, $q) {
+        ["$http", "$q", "$window",
+        function($http, $q, $window) {
             function createUser(user) {
                 return $q(function(accept, reject) {
                     $http.post("/api/users", user).then(function(response) {
-                        if (response.status === 201)
+                        if (response.status === $window.httpStatusCode.CREATED)
                             accept(response.data);
                         else
                             reject(response.status);
@@ -20,7 +20,14 @@
             }
 
             function deleteUser(uuid) {
-                return $http.delete("/api/users/" + uuid);
+                return $q(function(accept, reject) {
+                    $http.delete("/api/users/" + uuid).then(function(response) {
+                        if (response.status === $window.httpStatusCode.NO_CONTENT)
+                            accept(true);
+                        else
+                            reject(response.status);
+                    });
+                });
             }
 
             function getAllUsers() {
@@ -34,7 +41,7 @@
             function updateUser(user) {
                 return $q(function(accept, reject) {
                     $http.put("/api/users/" + user.uuid, user).then(function(response) {
-                        if (response.status === 200)
+                        if (response.status === $window.httpStatusCode.OK)
                             accept(response.data);
                         else
                             reject(response.status);
