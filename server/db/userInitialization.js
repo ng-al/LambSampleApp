@@ -3,8 +3,6 @@
 var SQL_CREATE_TABLE = "create table if not exists user (id integer primary key asc, uuid text, firstName text, lastName text, email text)";
 var SQL_INSERT_USER = "insert into user (uuid, firstName, lastName, email) values ($uuid, $firstName, $lastName, $email)";
 
-var Sqlite3Helper = require("./sqlite3-helper");
-
 var USERS = [
     {uuid: "edae3d45-03cf-41c6-8291-aa2fc23baded", firstName: "Alvin", lastName: "Pivowar", email: "alvin.pivowar@gmail.com"},
     {uuid: "36063f52-3ea3-4b36-afd2-9e5394a819f2", firstName: "Bruce", lastName: "Wilson", email: "bruce.wilson@neovant.com"},
