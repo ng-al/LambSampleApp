@@ -3,11 +3,15 @@
 (function() {
     "use strict";
 
+    var CONTROLLER_NAME = "statusCtrl";
+
     angular
         .module("LambSample")
-        .controller("statusCtrl",
-        ["$sce", "$scope", "statusSettings", "userService1",
-        function($sce, $scope, statusSettings, userService1) {
+        .controller(CONTROLLER_NAME,
+        ["$scope", "Lamb", "statusSettings", "userService3",
+        function($scope, Lamb, statusSettings, userService3) {
+            var bus = new Lamb(CONTROLLER_NAME, $scope);
+
             var vm = this;
             vm.editUser = {};
             vm.users = [];
@@ -31,21 +35,12 @@
 
             function create(newUser) {
                 delete newUser.uuid;
-                userService1.createUser(newUser).then(function(user) {
-                    vm.users.push(user);
-                });
+                userService2.createUser(newUser);
                 cancelEdit();
             }
 
             function deleteOp(uuid) {
-                userService1.deleteUser(uuid).then(function() {
-                    var updatedUserList = [];
-                    angular.forEach(vm.users, function(user) {
-                        if (user.uuid !== uuid)
-                            updatedUserList.push(user);
-                    });
-                    vm.users = updatedUserList;
-                });
+                userService2.deleteUser(uuid);
             }
 
             function edit(uuid) {
@@ -57,12 +52,29 @@
             }
 
             function init() {
-                userService1.getAllUsers().then(function(data) {
-                    var i;
-                    var registration;
-                    var shortCut;
-
+                userService3.getAllUsers().then(function(data) {
                     vm.users = data.data;
+                });
+
+                bus.subscribe("users.create.*", function(createdUser) {
+                    vm.users.push(createdUser);
+                });
+
+                bus.subscribe("users.update.*", function(updatedUser) {
+                    angular.forEach(vm.users, function(user) {
+                        if (user.uuid === updatedUser.uuid) {
+                            angular.extend(user, updatedUser);
+                        }
+                    });
+                });
+
+                bus.subscribe("users.delete.*", function(uuid) {
+                    var updatedUserList = [];
+                    angular.forEach(vm.users, function(user) {
+                        if (user.uuid !== uuid)
+                            updatedUserList.push(user);
+                    });
+                    vm.users = updatedUserList;
                 });
 
                 statusSettings.useToast = true;
@@ -74,14 +86,8 @@
             }
 
             function update(updatedUser) {
-                userService1.updateUser(updatedUser).then(function() {
-                    angular.forEach(vm.users, function(user) {
-                        if (user.uuid === updatedUser.uuid) {
-                            angular.extend(user, updatedUser);
-                        }
-                    });
-                    cancelEdit();
-                });
+                userService3.updateUser(updatedUser);
+                cancelEdit();
             }
         }]);
 })();
