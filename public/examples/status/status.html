@@ -1,13 +1,12 @@
-<div>
-    <div class="pane" ng-include="'crud2.html'"></div>
-    <div class="pane" ng-include="'crud2.html'"></div>
+<div ng-controller="statusCtrl as vm">
+    <div class="pane" ng-include="'status.html'"></div>
 </div>
 
-<script type="text/ng-template" id="crud2.html">
-    <div class="crud" ng-controller="userCtrl2 as vm">
+<script type="text/ng-template" id="status.html">
+    <div class="crud">
         <center>
             <h2>Users</h2>
-            <h3>Controller and Service with Lamb</h3>
+            <h3>Controller and Service (no Lamb)</h3>
         </center>
 
         <div ng-if="vm.editUser.uuid !== 'new'">
@@ -18,6 +17,7 @@
             <label>Email: </label><input type="email" ng-model="vm.editUser.email">
             <button ng-click="vm.cancelEdit()">Cancel</button>
             <button ng-click="vm.create(vm.editUser)">Save</button>
+            <hr />
         </div>
 
 

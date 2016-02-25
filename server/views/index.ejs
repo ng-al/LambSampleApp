@@ -14,27 +14,27 @@
     <script src="/lib/http-status-codes/http-status-codes.js"></script>
     <script src="/lib/ngtoast/dist/ngToast.min.js"></script>
 
-    <script src="/scripts/app/LambSample.js"></script>
-    <script src="/scripts/app/LambSampleRoute.js"></script>
-    <script src="/scripts/app/httpInterceptor.js"></script>
-    <script src="/scripts/app/navCtrl.js"></script>
+    <script src="/app/LambSample.js"></script>
+    <script src="/app/routing/LambSampleRoute.js"></script>
+    <script src="/app/httpInterceptor.js"></script>
+    <script src="/app/routing/navCtrl.js"></script>
 
-    <script src="/scripts/ex1/userService1.js"></script>
-    <script src="/scripts/ex1/userCtrl1.js"></script>
+    <script src="/examples/ex1/userService1.js"></script>
+    <script src="/examples/ex1/userCtrl1.js"></script>
 
-    <script src="/scripts/ex2/userService2.js"></script>
-    <script src="/scripts/ex2/userCtrl2.js"></script>
+    <script src="/examples/ex2/userService2.js"></script>
+    <script src="/examples/ex2/userCtrl2.js"></script>
 
-    <script src="/scripts/ex3/userService3.js"></script>
-    <script src="/scripts/ex3/userCtrl3.js"></script>
+    <script src="/examples/ex3/userService3.js"></script>
+    <script src="/examples/ex3/userCtrl3.js"></script>
 
-    <script src="/scripts/chip/chipService.js"></script>
-    <script src="/scripts/chip/colorChipDirective.js"></script>
-    <script src="/scripts/chip/chipCtrl.js"></script>
+    <script src="/examples/chip/chipService.js"></script>
+    <script src="/examples/chip/colorChipDirective.js"></script>
+    <script src="/examples/chip/chipCtrl.js"></script>
 
-    <script src="/scripts/status/statusSettings.js"></script>
-    <script src="/scripts/status/toastDaemon.js"></script>
-    <script src="/scripts/status/statusCtrl.js"></script>
+    <script src="/examples/status/statusSettings.js"></script>
+    <script src="/examples/status/toastDaemon.js"></script>
+    <script src="/examples/status/statusCtrl.js"></script>
 
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 
@@ -53,7 +53,7 @@
         <img src="/images/angular.ico">
         <span>MB</span>
     </center>
-    <div ng-include="'/templates/nav.html'"></div>
+    <div ng-include="'/app/routing/nav.html'"></div>
     <div class="author">
         Alvin Pivowar&nbsp;&nbsp;
         <a href="http://www.ng-al.com">www.ng-al.com</a>&nbsp;&nbsp;
@@ -61,7 +61,6 @@
     </div>
 </header>
 
-<hr>
 <div class="view" ng-view></div>
 </body>
 </html>

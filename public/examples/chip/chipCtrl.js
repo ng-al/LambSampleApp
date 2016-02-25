@@ -30,8 +30,6 @@
                         vm.colorValues.push(hexDigits[i] + hexDigits[j]);
                     }
                 }
-
-                vm.red = "CC";
             }
 
             function setLambRed(r) {

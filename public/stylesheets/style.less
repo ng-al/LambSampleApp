@@ -2,17 +2,43 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+header {
+  background-color: lightgreen;
+  border-bottom: 2px solid black;
+  height: 140px;
+
+  .author {
+    float: right;
+    margin-right: 20px;
+    position: relative;
+    top: 8px;
+  }
+
+  .title {
+    span {
+      display: inline-block;
+      font-size: 40px;
+      margin: 0 0 15px 0;
+      position: relative;
+    }
+    img {
+      display: inline-block;
+      height: 42px;
+      position: relative;
+      top: -7px;
+      width: 40px;
+    }
+  }
+}
+
+hr {
+  border-color: gray !important;
+}
+
 label {
   display: inline-block;
   font-weight: bold;
   margin-right: 10px;
-}
-
-.author {
-  display: inline-block;
-  float: right;
-  margin-right: 580px;
-  margin-top: 0;
 }
 
 .chip {
@@ -46,16 +72,16 @@ label {
   }
 
   input[type=text] {
-    width: 150px;
+    width: 100px;
   }
 
   input[type=email] {
-    width: 308px;
+    width: 208px;
   }
 
   .list {
     clear: both;
-    width: 580px;
+    width: 100%;
   }
 
   button {
@@ -64,10 +90,17 @@ label {
     left: 10px;
     margin-right: 10px;
     position: relative;
+
+    &:hover {
+      border-color: dimgray silver silver dimgray;
+      border-style: solid;
+      border-width: 2px;
+    }
   }
 }
 
 .nav {
+  float: left;
   margin-left: 30px;
 
   ul {
@@ -83,6 +116,7 @@ label {
   }
 
   a {
+    background-color: white;
     border: 1px solid black;
     color: black;
     display: inline-block;
@@ -95,15 +129,18 @@ label {
 
   a:hover {
     background-color: silver;
+    text-decoration: none;
   }
 
   a.active {
     background-color: gold;
     cursor: default;
+    text-decoration: none;
   }
 }
 
 .pane {
+  background-color: white;
   border: 1px solid black;
   float: left;
   height: 600px;
@@ -112,29 +149,16 @@ label {
   margin-top: -30px;
   padding-left: 20px;
   padding-right: 20px;
-  width: 620px;
+  width: 500px;
 }
 
 .chip-pane {
   height: 800px;
-}
-
-.title {
-  span {
-    display: inline-block;
-    font-size: 40px;
-    margin-right: 0px;
-    position: relative;
-  }
-  img {
-    display: inline-block;
-    height: 42px;
-    position: relative;
-    top: -7px;
-    width: 40px;
-  }
+  width: 620px;
 }
 
 .view {
-  padding: 30px;
+  background-color: lightgrey;
+  height: 860px;
+  padding: 60px 30px 30px 30px;
 }
