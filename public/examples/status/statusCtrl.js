@@ -35,12 +35,12 @@
 
             function create(newUser) {
                 delete newUser.uuid;
-                userService2.createUser(newUser);
+                userService3.createUser(newUser);
                 cancelEdit();
             }
 
             function deleteOp(uuid) {
-                userService2.deleteUser(uuid);
+                userService3.deleteUser(uuid);
             }
 
             function edit(uuid) {
@@ -79,8 +79,6 @@
 
                 statusSettings.useToast = true;
                 $scope.$on("$destroy", function() {
-                    var path;
-
                     statusSettings.useToast = false;
                 });
             }
