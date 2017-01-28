@@ -11,7 +11,7 @@
     "ejs": "^2.3.3",
     "express": "^4.13.1",
     "http-status-codes": "^1.0.5",
-    "less-middleware": "2.1.x",
+    "less-middleware": "2.2.x",
     "morgan": "^1.6.1",
     "node-uuid": "^1.4.3",
     "promise": "^7.1.1",

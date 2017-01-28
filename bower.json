@@ -1,22 +1,31 @@
 {
-  "name": "LambSampleApp",
+  "name": "lamb-sample-app",
+  "description": "Demonstrate pub/sub using Lamb",
+  "main": "server.js, server/views/index.js",
   "authors": [
     "alvin-pivowar <alvin@ng-al.com>"
   ],
-  "homepage": "http://www.ng-al.com",
   "license": "BSD",
-  "main": [
-    "server.js",
-    "server/views/index.ejs"
+  "keywords": [
+    "angular",
+    "messaging",
+    "lamb",
+    "pub/sub"
   ],
+  "homepage": "http://www.ng-al.com",
   "dependencies": {
-    "angular": "^1.5.0",
-    "angular-bootstrap": "^1.1.2",
-    "angular-messages": "^1.5.0",
-    "angular-route": "^1.5.0",
+    "angular": "^1.6.1",
+    "angular-bootstrap": "^2.5.0",
+    "angular-messages": "^1.6.1",
+    "angular-route": "^1.6.1",
+    "angular-sanitize": "^1.6.1",
     "bootstrap-css": "^3.3.6",
     "apLambSocks": "^2.0.0",
     "http-status-codes": "^0.1.0",
-    "ngtoast": "^1.5.6"
+    "ngToast": "ngtoast#^2.0.0"
+  },
+  "resolutions": {
+  	"angular": "1.6.1",
+  	"angular-sanitize": "1.6.1"
   }
 }
