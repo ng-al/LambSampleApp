@@ -3,7 +3,7 @@
   "description": "Demonstrate pub/sub using Lamb",
   "main": "server.js, server/views/index.js",
   "authors": [
-    "alvin-pivowar <alvin@ng-al.com>"
+    "alvin-pivowar 'Angular-Al' <alvin@ng-al.com>"
   ],
   "license": "BSD",
   "keywords": [
